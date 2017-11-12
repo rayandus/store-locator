@@ -1,0 +1,9 @@
+{
+"establishments": [
+{"type":"Casual Dining","count":5},
+{"type":"Fine Dining","count":5},
+{"type":"Native","count":5},
+{"type":"Quick Bites","count":5}
+],
+"specialties": ["Chicken", "Pizza", "Burger", "Barbeque", "Beef", "Pork", "Pasta", "Green Salad", "Desserts", "Cakes & Pastries"]
+}

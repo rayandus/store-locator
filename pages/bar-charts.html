@@ -1,0 +1,42 @@
+<style type="text/css">
+	.width-min-chart
+	{
+		width: 200px;
+		height: 100px;
+		display: inline-block;
+	}
+</style>
+<div class="width-min-chart">
+	<div id="chartContainer" height="300px"></div>
+	<script type="text/javascript">
+		$(function(){
+			var chart = new CanvasJS.Chart("chartContainer", {
+				height:200,
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+				data: [{
+					dataPoints: [
+						{ x: 10, y: 50 },
+						{ x: 20, y: 40},
+						{ x: 30, y: 30 },
+						{ x: 40, y: 80 },
+						{ x: 50, y: 20 },
+						{ x: 60, y: 5 },
+						{ x: 70, y: 60 },
+						{ x: 80, y: 75 },
+						{ x: 90, y: 35}
+					]
+				}]
+			});
+			
+			chart.render();
+		});
+	</script>
+</div>

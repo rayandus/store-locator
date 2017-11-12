@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Navagis Exercise</title>
+	<meta name="viewport" content="initial-scale=1.0">
+	<meta charset="utf-8">
+	<script type="text/javascript" src="resources/plugin/jquery/jquery-3.2.1.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="resources/app/css/app.css" />
+	<script type="text/javascript" src="resources/app/js/app.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="resources/plugin/simple-accordion/style.css" />
+	<script type="text/javascript" src="resources/plugin/simple-accordion/script.js"></script>
+	
+	<script type="text/javascript" src="resources/plugin/canvasjs/canvasjs.min.js"></script>
+</head>
+  <body>
+    <div id="map"></div>
+	<div id="data-panel">
+		<div class="data-panel-title">
+			<img id="favicon" width="280px" src="resources/app/images/favicon.gif"></img>
+			<div><label>Restaurant Map Exercise</label></div>
+		</div>
+		<ul class="accordion">
+			<li>
+				<a class="toggle" href="#">
+					<img id="favicon" width="16px" src="resources/app/images/location.png"></img>
+					<span class="data-panel-options">Directions</span><hr/>
+				</a>
+				<ul class="inner">
+					<div class="data-panel-direction">
+						<label>Your Location </label>
+						<div><input id="inp-direction-origin" type="text" readonly="readonly" /></div>
+					</div>
+					<div class="data-panel-direction">
+						<label>Destination </label>
+						<div><select id="sel-direction-destination-est"></select></div>
+					</div><br/>
+					<div>
+						<div id="data-panel-text-directions"></div>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<a class="toggle" href="#">
+					<img id="favicon" width="16px" src="resources/app/images/filter.png"></img>
+					<span class="data-panel-options">Filters</span><hr/>
+				</a>
+				<ul class="inner">
+					<div class="data-panel-filters-est-type">
+						<label>Establishment Type</label><br/>
+					</div>
+					<div class="data-panel-filters-specialties">
+						<label>Specialties</label><br/>
+					</div>
+				</ul>
+			</li>
+			<li>
+				<a class="toggle" href="#">
+					<img id="favicon" width="16px" src="resources/app/images/tools.png"></img>
+					<span class="data-panel-options">Tools</span><hr/>
+				</a>
+				<ul class="inner default">
+					<div>
+						<input id="option-show-visits" type="checkbox" checked="checked" /> Customer Visits
+					</div>
+					<div>
+						<button id="btn_inspect_loc">Inspect Area</button>
+						<input id="tf_inspect_loc_radius" type="number" value="800" /> m radius
+						<div id="inspect_loc_details">
+							<div><b>Number of Restaurants:</b> <span id="inspect_loc_count"></span></div>
+							<div><b>Establishments:</b> <span id="inspect_loc_est"></span></div>
+							<div><b>Specialties:</b> <span id="inspect_loc_specialties"></span></div>
+						</div>
+					</div>
+					<div id="tools-charts-area">
+					</div>
+					<script>
+						$(function(){
+							$('#tools-charts-area').load('pages/crosshair-chart.html', { p_width: '420px' });
+						});
+					</script>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		function initApp() {
+			ng = new NgExer();
+			ng.initMap({lat: 10.3170726, lng: 123.8907623});
+			ng.loadRestaurants();
+			ng.initRestaurantsStats();
+			ng.showDataPanel();
+			ng.showFilterEstablishments();
+			ng.showFilterSpecialties();
+			ng.initToolInspectLocationByRadius({lat: 10.3158271, lng: 123.9059329});
+			ng.initDirectionOrigin();
+			ng.initDirectionDestination();
+		}
+	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsUBfqJUwAaKUPIYCNRuz0VbXljkI4KpY&libraries=geometry&callback=initApp"></script>
+  </body>
+</html>

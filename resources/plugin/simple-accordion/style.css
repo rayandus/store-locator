@@ -1,0 +1,23 @@
+/* simple accordion */
+ul.accordion .inner {
+	display: none;
+}
+ul.accordion .inner.default {
+	display: block;
+}
+ul.accordion a:link {
+	text-decoration: none;
+	color: #33373D;
+	cursor: pointer;
+}
+
+ul.accordion a:visited {
+	text-decoration: none;
+	color: #33373D;
+	cursor: pointer;
+}
+ul.accordion, ul.accordion ul {
+	list-style: none;
+	margin: 0;
+    padding: 0;
+}

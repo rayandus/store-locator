@@ -1,0 +1,24 @@
+{
+"establishments": [
+{ "id": 1000, "stats": { "total_visits": 5042 } },
+{ "id": 1001, "stats": { "total_visits": 8246 } },
+{ "id": 1002, "stats": { "total_visits": 6752 } },
+{ "id": 1003, "stats": { "total_visits": 9875 } },
+{ "id": 1004, "stats": { "total_visits": 6485 } },
+{ "id": 1005, "stats": { "total_visits": 3214 } },
+{ "id": 1006, "stats": { "total_visits": 6874 } },
+{ "id": 1007, "stats": { "total_visits": 8697 } },
+{ "id": 1008, "stats": { "total_visits": 6854 } },
+{ "id": 1009, "stats": { "total_visits": 3985 } },
+{ "id": 1010, "stats": { "total_visits": 9457 } },
+{ "id": 1011, "stats": { "total_visits": 6548 } },
+{ "id": 1012, "stats": { "total_visits": 6324 } },
+{ "id": 1013, "stats": { "total_visits": 6857 } },
+{ "id": 1014, "stats": { "total_visits": 2854 } },
+{ "id": 1015, "stats": { "total_visits": 6874 } },
+{ "id": 1016, "stats": { "total_visits": 4685 } },
+{ "id": 1017, "stats": { "total_visits": 9875 } },
+{ "id": 1018, "stats": { "total_visits": 8936 } },
+{ "id": 1019, "stats": { "total_visits": 6574 } }
+]
+}
