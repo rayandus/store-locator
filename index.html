@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Navagis Exercise</title>
+	<title>Store Locator Exercise</title>
 	<meta name="viewport" content="initial-scale=1.0">
 	<meta charset="utf-8">
 	<script type="text/javascript" src="resources/plugin/jquery/jquery-3.2.1.min.js"></script>
@@ -19,8 +19,12 @@
 	<div id="data-panel">
 		<div class="data-panel-title">
 			<img id="favicon" width="280px" src="resources/app/images/favicon.gif"></img>
-			<div><label>Restaurant Map Exercise</label></div>
+			<div><label>Store Locator Exercise</label></div>
 		</div>
+		<div class="data-panel-fake-location">
+			Store locations are limited in this demo and are mostly located in Cebu, Philippines.
+			You may use a proxy or <a href='#' id='btn-fake-location' data-fk-lat='10.317343' data-fk-lng='123.9117123'>use this fake location</a>
+		</div><br/>
 		<ul class="accordion">
 			<li>
 				<a class="toggle" href="#">
@@ -29,7 +33,7 @@
 				</a>
 				<ul class="inner">
 					<div class="data-panel-direction">
-						<label>Your Location </label>
+						<label>Origin (i.e., your location) </label>
 						<div><input id="inp-direction-origin" type="text" readonly="readonly" /></div>
 					</div>
 					<div class="data-panel-direction">
@@ -41,7 +45,7 @@
 					</div>
 				</ul>
 			</li>
-			<li>
+			<!--<li>
 				<a class="toggle" href="#">
 					<img id="favicon" width="16px" src="resources/app/images/filter.png"></img>
 					<span class="data-panel-options">Filters</span><hr/>
@@ -54,23 +58,22 @@
 						<label>Specialties</label><br/>
 					</div>
 				</ul>
-			</li>
+			</li>-->
 			<li>
 				<a class="toggle" href="#">
 					<img id="favicon" width="16px" src="resources/app/images/tools.png"></img>
 					<span class="data-panel-options">Tools</span><hr/>
 				</a>
 				<ul class="inner default">
-					<div>
+					<div style="display:none;">
 						<input id="option-show-visits" type="checkbox" checked="checked" /> Customer Visits
 					</div>
 					<div>
-						<button id="btn_inspect_loc">Inspect Area</button>
+						<button id="btn_inspect_loc">Get stores within</button>
 						<input id="tf_inspect_loc_radius" type="number" value="800" /> m radius
 						<div id="inspect_loc_details">
-							<div><b>Number of Restaurants:</b> <span id="inspect_loc_count"></span></div>
-							<div><b>Establishments:</b> <span id="inspect_loc_est"></span></div>
-							<div><b>Specialties:</b> <span id="inspect_loc_specialties"></span></div>
+							<div><b>Number of Stores:</b> <span id="inspect_loc_count"></span></div>
+							<div><b>Establishments (From Your Location):</b> <span id="inspect_loc_est"></span></div>
 						</div>
 					</div>
 					<div id="tools-charts-area">
@@ -94,8 +97,9 @@
 			ng.showFilterEstablishments();
 			ng.showFilterSpecialties();
 			ng.initToolInspectLocationByRadius({lat: 10.3158271, lng: 123.9059329});
-			ng.initDirectionOrigin();
+			//ng.initDirectionOrigin();
 			ng.initDirectionDestination();
+			ng.initCurrentLocation(null);
 		}
 	</script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsUBfqJUwAaKUPIYCNRuz0VbXljkI4KpY&libraries=geometry&callback=initApp"></script>

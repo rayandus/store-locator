@@ -10,6 +10,8 @@ var g_marker = [];
 var g_features;
 var g_infoWindowArr = [];
 var g_establishmentStats = [];
+var g_curr_marker;
+var g_distanceMatrixService;
 
 function NgExer()
 {
@@ -38,12 +40,37 @@ function NgExer()
 	 *====================================================================================*/
 	this.initMap = function(p_defaultLoc)
 	{
+		m_mapStyles = [
+			// set the stylers for the road featureType, but only highways
+			{
+				featureType: "road.highway", // just highways
+				elementType: "geometry", // labels excluded
+				"stylers": [
+				  { "hue": "#1900ff" },
+				  { "saturation": -54 },
+				  { "lightness": 54 },
+				  { "gamma": 0.52 }
+				]
+			},
+			// set the stylers for the water features
+			{
+				featureType: "water", // all waters
+				"stylers": [
+				  { "hue": "#1900ff" },
+				  { "lightness": 14 },
+				  { "saturation": -58 },
+				  { "gamma": 0.26 }
+				]
+			}
+		];
+
 		g_mapDefaultLoc = p_defaultLoc;
 		g_map = new google.maps.Map(document.getElementById('map'), {
-		  zoom: 14,
+		  zoom: 15,
 		  center: p_defaultLoc, // focus on mainland cebu
 		  disableDefaultUI: true
 		});
+		g_map.setOptions({styles: m_mapStyles});
 	};
 	
 	/*====================================================================================
@@ -84,22 +111,18 @@ function NgExer()
 				
 				// add restaurant info on marker click
 				m_marker.addListener('click', function() {
-					var m_specialties = 'Specialties:<br/>';
-					
-					var size = p_val.properties.specialties.length;
-					for(var i=0; i<size; i++) {
-						m_specialties = m_specialties + ' &bull; ' + p_val.properties.specialties[i];
-					}
 					
 					var m_getdir = '<a href="#" onclick="NgExer.getDirectionFromCurrentGeoLoc(this);" data-lat="'+p_val.geometry.coordinates[1]+'" data-lng="'+p_val.geometry.coordinates[0]+'">Get Direction</a>';
 					
-					var m_content = '<strong>'+p_val.properties.name+'</strong> <i>('+p_val.properties.type+')</i><br/><br/>'+
-									p_val.properties.description+'<br/><br/>'+
-									m_specialties+'<br/><br/>'+
+					NgExer.getAddressFromLatLang(p_val.geometry.coordinates[1], p_val.geometry.coordinates[0], function(p_res) {
+						var m_content = '<strong>'+p_val.properties.name+'</strong><br/>'+
+									p_val.properties.description+'<br/>'+
+									'Location: '+p_val.geometry.coordinates[1]+', '+p_val.geometry.coordinates[0]+'<br/>'+
+									'Address: '+p_res+'<br/>'+
 									m_getdir;
-					
-					g_infoWindow.setContent(m_content);
-					g_infoWindow.open(g_map, m_marker);
+						g_infoWindow.setContent(m_content);
+						g_infoWindow.open(g_map, m_marker);
+					});
 				});
 				
 				g_marker.push(m_marker);
@@ -119,6 +142,11 @@ function NgExer()
 		var m_datapanel = $('#data-panel');
 		// position data panel
 		g_map.controls[google.maps.ControlPosition.LEFT_TOP].push(m_datapanel[0]);
+		
+		// click event on fake location
+		$('#btn-fake-location').click(function(p_evt) {
+			NgExer.showUserGeoLocation({lat: $(this).data('fk-lat'), lng: $(this).data('fk-lng')}, {lat: 10.3190781, lng: 123.9000964});
+		});
 	}
 	
 	/*====================================================================================
@@ -170,9 +198,9 @@ function NgExer()
 	{
 		var m_radius;
 		$('#btn_inspect_loc').click(function(p_evt) {
-			if( $('#btn_inspect_loc').html() == 'Uninspect Area') {
+			if( $('#btn_inspect_loc').html() == 'Reset') {
 				m_radius.setMap(null);
-				$('#btn_inspect_loc').html('Inspect Area');
+				$('#btn_inspect_loc').html('Get stores within');
 				$('#inspect_loc_details').css('display','none');
 				
 				// close open windows that were opened by inspect radius
@@ -185,7 +213,7 @@ function NgExer()
 					m_radius = new google.maps.Circle({
 						editable: true,
 						draggable: true,
-						center: p_defaultLoc,
+						center: g_curr_marker.getPosition(),
 						fillColor: '#99f',
 						strokeColor: '#99f',
 						clickable: true,
@@ -194,21 +222,22 @@ function NgExer()
 					// event when circle is resized
 					m_radius.addListener('radius_changed', function(p_evt) {
 						if( $('#option-show-visits').is(':checked') )
-							NgExer.showCustomerVisitOnMarkers( NgExer.updateInspectAreaDetails(m_radius, m_radius.getCenter()) );
+							NgExer.showProximityDetails( NgExer.updateInspectAreaDetails(m_radius, m_radius.getCenter()) );
 					});
 					// event when circle is moved
 					m_radius.addListener('dragend', function(p_evt) {
 						if( $('#option-show-visits').is(':checked') )
-							NgExer.showCustomerVisitOnMarkers( NgExer.updateInspectAreaDetails(m_radius, m_radius.getCenter()) );
+							NgExer.showProximityDetails( NgExer.updateInspectAreaDetails(m_radius, m_radius.getCenter()) );
 					});
 					// event when radius text field changes
 					$('#tf_inspect_loc_radius').bind('keyup change', function(p_evt) {
 						m_radius.setRadius( parseInt($(this).val()) );
 					});
 				}
+				m_radius.setCenter(g_curr_marker.getPosition());
 				m_radius.setMap(g_map);
 				m_radius.setRadius( parseInt($('#tf_inspect_loc_radius').val()) );
-				$('#btn_inspect_loc').html('Uninspect Area');
+				$('#btn_inspect_loc').html('Reset');
 				$('#inspect_loc_details').css('display','block');
 			}
 		});
@@ -216,6 +245,14 @@ function NgExer()
 		$('#option-show-visits').change(function(p_evt) {
 			console.log(g_establishmentStats);
 		});
+	}
+	
+	/*====================================================================================
+	 * Initialize current geolocation
+	 *====================================================================================*/
+	this.initCurrentLocation = function(p_fk_location)
+	{
+		NgExer.showUserGeoLocation(p_fk_location);
 	}
 	
 	/*====================================================================================
@@ -251,9 +288,14 @@ function NgExer()
 		});
 		
 		$('#sel-direction-destination-est').change(function(p_evt) {
-			var m_origin = { lat: $('#inp-direction-origin').data('lat'), lng: $('#inp-direction-origin').data('lng') };
-			var m_dest = { lat: $(this).find(':selected').data('lat'), lng: $(this).find(':selected').data('lng') };
-			NgExer.calculateAndDisplayRoute(m_origin, m_dest);
+			if( $(this).val() == '' ) {
+				$('#data-panel-text-directions').html(''); // reset text directions panel
+				if( g_directionsDisplay != null ) g_directionsDisplay.setMap(null);
+			} else {
+				var m_origin = { lat: $('#inp-direction-origin').data('lat'), lng: $('#inp-direction-origin').data('lng') };
+				var m_dest = { lat: $(this).find(':selected').data('lat'), lng: $(this).find(':selected').data('lng') };
+				NgExer.calculateAndDisplayRoute(m_origin, m_dest);
+			}
 		});
 	}
 	
@@ -308,29 +350,144 @@ NgExer.updateInspectAreaDetails = function(p_radius, p_defaultLoc)
 }
 
 /*====================================================================================
+ * Show current user geolocation (or fake)
+ *====================================================================================*/
+NgExer.showUserGeoLocation = function(p_fk_location, p_center)
+{
+	// use fake location
+	if(p_fk_location != null) {
+		// show fake geolocation
+		if(g_curr_marker != null) g_curr_marker.setMap(null);
+		g_curr_marker = new google.maps.Marker({
+			position: new google.maps.LatLng(p_fk_location.lat, p_fk_location.lng),
+			animation: google.maps.Animation.DROP,
+			map: g_map
+		});
+		g_map.setCenter(p_center);
+		
+		g_curr_marker.addListener('click', function() {
+			NgExer.getAddressFromLatLang(p_fk_location.lat, p_fk_location.lng, function(p_res) {
+				var m_content = '<strong>Your Location</strong><br/>'+
+							'Location: '+p_fk_location.lat+', '+p_fk_location.lng+'<br/>'+
+							'Address: '+p_res+'<br/>';
+				g_infoWindow.setContent(m_content);
+				g_infoWindow.open(g_map, g_curr_marker);
+				$('#inp-direction-origin').val(p_res).attr('data-lat', p_fk_location.lat).attr('data-lng', p_fk_location.lng);
+			});
+		});
+		google.maps.event.trigger(g_curr_marker, 'click'); // show infoWindow
+				
+	}
+	// use user geolocation
+	else {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition( function(p_pos) {
+				// show current location marker
+				if(g_curr_marker != null) g_curr_marker.setMap(null);
+				g_curr_marker = new google.maps.Marker({
+					position: new google.maps.LatLng(p_pos.coords.latitude, p_pos.coords.longitude),
+					animation: google.maps.Animation.DROP,
+					map: g_map
+				});
+				 g_map.setCenter(g_curr_marker.getPosition());
+				
+				g_curr_marker.addListener('click', function() {
+					NgExer.getAddressFromLatLang(p_pos.coords.latitude, p_pos.coords.longitude, function(p_res) {
+						var m_content = '<strong>Your Location</strong><br/>'+
+									'Location: '+p_pos.coords.latitude+', '+p_pos.coords.longitude+'<br/>'+
+									'Address: '+p_res+'<br/>';
+						g_infoWindow.setContent(m_content);
+						g_infoWindow.open(g_map, g_curr_marker);
+						$('#inp-direction-origin').val(p_res).attr('data-lat', p_pos.coords.latitude).attr('data-lng', p_pos.coords.longitude);
+					});
+				});
+				google.maps.event.trigger(g_curr_marker, 'click'); // show infoWindow
+				
+			}, function() {
+				$('#inp-direction-origin').val(p_res);
+			});
+		}
+		else {
+			// browser doesn't support geolocation
+			$('#inp-direction-origin').val('Browser doesn\'t support geolocation');
+			alert('Browser doesn\'t support geolocation');
+		}
+	}
+	
+	if( !$('.data-panel-direction').parent().hasClass('show') )
+		$('.data-panel-direction').parent().parent().find('.toggle').click();
+}
+
+/*====================================================================================
  * Show visit count on marker
  *====================================================================================*/
-NgExer.showCustomerVisitOnMarkers = function(p_markers)
+NgExer.showProximityDetails = function(p_markers)
 {
 	// close open windows that were opened by inspect radius
 	$.each(g_infoWindowArr, function(p_key, p_val) {
 		this.close();
 	});
 	
+	$('#inspect_loc_est').html('');
+	g_distanceMatrixService = new google.maps.DistanceMatrixService();
+	
 	// open new windows opened by inspect radius
-	$.each(p_markers, function(p_key, p_val){
+	/*$.each(p_markers, function(p_key, p_val){
 		var m_infoWindow = new google.maps.InfoWindow();
 		m_num = g_establishmentStats[p_val.est_id].total_visits.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 		m_infoWindow.setContent( '<span style="font-size: 8px;">'+p_val.label.text+'</span><br/><span>'+m_num+'</span> <span style="font-size: 8px;">total customers</span>' );
 		m_infoWindow.open(g_map, this);
 		g_infoWindowArr.push(m_infoWindow);
+	});*/
+	
+	var m_arrDestination = [];
+	$.each(p_markers, function(p_key, p_val) {
+		m_arrDestination.push(this.getPosition());
 	});
+	
+	g_distanceMatrixService.getDistanceMatrix({
+		origins: [g_curr_marker.getPosition()],
+		destinations: m_arrDestination,
+		travelMode: google.maps.TravelMode.DRIVING,
+		unitSystem: google.maps.UnitSystem.METRIC,
+		avoidHighways: false,
+		avoidTolls: false
+	}, function(m_response, m_status) {
+		// update infoWindow to show distance matrix data & other details
+		if(m_status != google.maps.DistanceMatrixStatus.OK) {
+			alert('Error: '+m_status);
+		} else {
+			//console.log(m_response);
+			var i = 0;
+			
+			$.each(m_response['destinationAddresses'], function(p_key, p_val) {
+				// show details on infoWindow
+				var m_infoWindow = new google.maps.InfoWindow();
+				m_num = g_establishmentStats[p_markers[i].est_id].total_visits.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+				
+				//console.log(p_markers[i].est_id);
+				console.log( m_response['rows'][0].elements[i].distance.text );
+				var m_content = '<strong>&bull; '+p_markers[i].label.text+'</strong><br/>'+
+								m_num+' total customers<br/>'+
+								'Address: '+p_val+'<br/>'+
+								'Distance: '+ m_response['rows'][0].elements[i].distance.text+'<br/>'+
+								'Travel Duration: '+ m_response['rows'][0].elements[i].duration.text;
+				
+				$('#inspect_loc_est').append('<div>'+m_content+'</div>');
+				m_infoWindow.setContent( m_content );
+				m_infoWindow.open(g_map, p_markers[i]);
+				g_infoWindowArr.push(m_infoWindow);
+				i++;
+			});
+		}
+	});
+	
 }
 
 /*====================================================================================
  * Get direction of restaurant from current geolocation
  *====================================================================================*/
-NgExer.getDirectionFromCurrentGeoLoc = function(p_obj)
+/*NgExer.getDirectionFromCurrentGeoLoc = function(p_obj)
 {
 	var g_markerLoc = { lat: $(p_obj).data('lat'), lng: $(p_obj).data('lng') };
 	if (navigator.geolocation) {
@@ -345,6 +502,15 @@ NgExer.getDirectionFromCurrentGeoLoc = function(p_obj)
 		// browser doesn't support geolocation
 		NgExer.handleLocationError(false, g_infoWindow, g_markerLoc);
 	}
+}*/
+
+/*====================================================================================
+ * Get direction of restaurant from current geolocation
+ *====================================================================================*/
+NgExer.getDirectionFromCurrentGeoLoc = function(p_obj)
+{
+	var g_markerLoc = { lat: $(p_obj).data('lat'), lng: $(p_obj).data('lng') };
+	NgExer.calculateAndDisplayRoute(g_curr_marker.getPosition(), g_markerLoc);
 }
 
 /*====================================================================================
