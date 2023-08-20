@@ -1,14 +1,14 @@
 
 <h1 align="left">
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="src/app/images/shop-locator-logo.png" alt="Markdownify" width="200"></a>
-  <div style="font-size: 18px">Store Locator Demo</div>
+  <div style="font-size: 15px">Store Locator Demo</div>
 </h1>
 
 ## About the Project
 
-Store locator is a demo project powered by Google Maps API. I made this for a simple demo a couple years back when I was still learning Google Maps API. Fast forward to 2003, I wanted to share it, but looking back how bare and native it was, I made some little tweaks to make it easy to run in your local should you wish to play around it.
+Store locator is a demo project powered by Google Maps API. I made this for a simple demo a couple years back when I was still learning Google Maps API (more than 6 years ago). Fast forward to 2023, I wanted to share it in it's original form (mostly). It is written in plain Javascript, jQuery, HTML, CSS, which I hope would be much easier to grasp, or so I hope 😆😛
 
-Google Maps API is a collection of maps services provided by Google that allow developers to integrate Google Maps into your applications. What I specifically used for this project are:
+Google Maps API is a collection of maps services provided by Google that allow developers to integrate Google Maps into their applications. What I specifically used for this project are limited to:
 - Maps Javascript API
 - Geocoding API
 - Directions API
@@ -16,9 +16,7 @@ Google Maps API is a collection of maps services provided by Google that allow d
 
 There are a bunch of other APIs and other tech stack support other than Javascript. You can read further about these APIs in their developer documentation [here](https://developers.google.com/maps)
 
-## Demo Site
-
-*To follow*
+### [Demo Page](https://rayandus.github.io/store-locator)
 
 ## Prerequisites
 
@@ -30,9 +28,9 @@ There are a bunch of other APIs and other tech stack support other than Javascri
 1. [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
 1. [Google Maps Developer Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 
-   > Unlike before, getting a developer API key nowadays will require payment details already such as credit card. Free credits are provided which will be enough for exploring. You can also restrict access to your API or limit the API usage just in case your key gets leaked or shared. Tips about API security [here](https://developers.google.com/maps/api-security-best-practices).
-
-   > I restricted my key, so you won't be able to use it in your local. I recommend getting your own key first.
+   > Unlike before, getting a developer API key nowadays will require payment details already such as credit card. I restricted my key, so you won't be able to use it in your local simply because I want to protect my key from over-usage and/or quota theft.
+   >
+   > So, please secure your own key. Free credits are provided which will be enough for exploring. I also recommend that you also restrict access to your API or limit the API usage. Tips about API security [here](https://developers.google.com/maps/api-security-best-practices).
 
 ## How to Set up
 
