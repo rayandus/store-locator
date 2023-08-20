@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@canvasjs/charts@^3.7.15":
-  version "3.7.15"
-  resolved "https://registry.yarnpkg.com/@canvasjs/charts/-/charts-3.7.15.tgz#a2ca2b8d2422cf26ad2d1741fdcc86a9abfe8ea4"
-  integrity sha512-NSfv1+LS5uk8qzcA7v7HQCbEYDpJWNGtgn4uQuTTQLZSANPQd/foY+Ih4ECUc7NzjKcNNU5A8tARjjzfsIXZqw==
-
 ansi-styles@^4.1.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-4.3.0.tgz#edd803628ae71c04c85ae7a0906edad34b648937"
@@ -54,11 +49,6 @@ call-bind@^1.0.0:
   dependencies:
     function-bind "^1.1.1"
     get-intrinsic "^1.0.2"
-
-canvasjs@^1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/canvasjs/-/canvasjs-1.8.3.tgz#181a526bbce09c1909431d9471f808494fe970cf"
-  integrity sha512-60eUT0VjqRgYqdIQcOkXg0Zptfbl4HefA/O51YEf1m/P0uXvE3icI/1KPrXpY9aVxn8gG/BB8DzVoTGCcyBnYg==
 
 chalk@^4.1.2:
   version "4.1.2"
@@ -301,11 +291,6 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
-
-jquery@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.0.tgz#fe2c01a05da500709006d8790fe21c8a39d75612"
-  integrity sha512-umpJ0/k8X0MvD1ds0P9SfowREz2LenHsQaxSohMZ5OMNEU2r0tf8pdeEFTHMFxWVxKNyU9rTtK3CWzUCTKJUeQ==
 
 lodash@^4.17.14:
   version "4.17.21"

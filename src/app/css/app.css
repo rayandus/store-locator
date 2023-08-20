@@ -91,7 +91,7 @@ input[id=tf_inspect_loc_radius]::-webkit-inner-spin-button {
 }
 
 .favicon {
-	background-image: url('resources/app/images/favicon.gif');
+	background-image: url('src/app/images/favicon.gif');
 	background-color: #cccccc;
 }
 

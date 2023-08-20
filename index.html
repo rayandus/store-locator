@@ -4,26 +4,26 @@
 	<title>Store Locator Demo</title>
 	<meta name="viewport" content="initial-scale=1.0">
 	<meta charset="utf-8">
-	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="src/app/js/jquery/jquery.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="resources/app/css/app.css" />
-	<script type="text/javascript" src="resources/app/js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="src/app/css/app.css" />
+	<script type="text/javascript" src="src/app/js/app.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="resources/app/js/simple-accordion/style.css" />
-	<script type="text/javascript" src="resources/app/js/simple-accordion/script.js"></script>
+	<link rel="stylesheet" type="text/css" href="src/app/js/simple-accordion/style.css" />
+	<script type="text/javascript" src="src/app/js/simple-accordion/script.js"></script>
 	
-	<script type="text/javascript" src="node_modules/@canvasjs/charts/canvasjs.min.js"></script>
+	<script type="text/javascript" src="src/app/js/canvasjs/canvasjs.min.js"></script>
 </head>
   <body>
     <div id="map"></div>
 	<div id="data-panel">
 		<div class="data-panel-title">
-			<img id="favicon" width="280px" src="resources/app/images/shop-locator-logo.png"></img>
+			<img id="favicon" width="280px" src="src/app/images/shop-locator-logo.png"></img>
 		</div>
 		<ul class="accordion">
 			<li>
 				<a class="toggle" href="#">
-					<img id="favicon" width="16px" src="resources/app/images/location.png"></img>
+					<img id="favicon" width="16px" src="src/app/images/location.png"></img>
 					<span class="data-panel-options">Directions</span><hr/>
 				</a>
 				<ul class="inner">
@@ -48,7 +48,7 @@
 			</li>
 			<li>
 				<a class="toggle" href="#">
-					<img id="favicon" width="16px" src="resources/app/images/tools.png"></img>
+					<img id="favicon" width="16px" src="src/app/images/tools.png"></img>
 					<span class="data-panel-options">Tools</span><hr/>
 				</a>
 				<ul class="inner default">
@@ -68,7 +68,7 @@
 					</div>
 					<script>
 						$(function(){
-							$('#tools-charts-area').load('resources/app/charts/crosshair-chart.html');
+							$('#tools-charts-area').load('src/app/charts/crosshair-chart.html');
 						});
 					</script>
 				</ul>

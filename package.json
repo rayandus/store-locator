@@ -2,9 +2,11 @@
   "name": "gmaps-assignment",
   "version": "1.0.0",
   "description": "Store locator demo using Google Maps Javascript API",
+  "homepage": "https://rayandus.github.io/store-locator/",
   "main": "index.html",
   "author": "Ray Anthony Andus",
   "license": "ISC",
+  "keywords": ["Google Maps", "Javascript"],
   "scripts": {
     "start": "npm run launch",
     "launch": "PORT=8000 && http-server -p $PORT | open http://localhost:$PORT",
@@ -15,9 +17,5 @@
     "http-server": "^14.1.1",
     "open": "^9.1.0"
   },
-  "dependencies": {
-    "@canvasjs/charts": "^3.7.15",
-    "canvasjs": "^1.8.3",
-    "jquery": "^3.7.0"
-  }
+  "dependencies": {}
 }
