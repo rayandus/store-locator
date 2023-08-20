@@ -1,0 +1,23 @@
+{
+  "name": "gmaps-assignment",
+  "version": "1.0.0",
+  "description": "Store locator demo using Google Maps Javascript API",
+  "main": "index.html",
+  "author": "Ray Anthony Andus",
+  "license": "ISC",
+  "scripts": {
+    "start": "npm run launch",
+    "launch": "PORT=8000 && http-server -p $PORT | open http://localhost:$PORT",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "open": "^9.1.0"
+  },
+  "dependencies": {
+    "@canvasjs/charts": "^3.7.15",
+    "canvasjs": "^1.8.3",
+    "jquery": "^3.7.0"
+  }
+}

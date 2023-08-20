@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Store Locator Exercise</title>
+	<title>Store Locator Demo</title>
 	<meta name="viewport" content="initial-scale=1.0">
 	<meta charset="utf-8">
-	<script type="text/javascript" src="resources/plugin/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="resources/app/css/app.css" />
 	<script type="text/javascript" src="resources/app/js/app.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="resources/plugin/simple-accordion/style.css" />
-	<script type="text/javascript" src="resources/plugin/simple-accordion/script.js"></script>
+	<link rel="stylesheet" type="text/css" href="resources/app/js/simple-accordion/style.css" />
+	<script type="text/javascript" src="resources/app/js/simple-accordion/script.js"></script>
 	
-	<script type="text/javascript" src="resources/plugin/canvasjs/canvasjs.min.js"></script>
+	<script type="text/javascript" src="node_modules/@canvasjs/charts/canvasjs.min.js"></script>
 </head>
   <body>
     <div id="map"></div>
 	<div id="data-panel">
 		<div class="data-panel-title">
-			<img id="favicon" width="280px" src="resources/app/images/favicon.gif"></img>
-			<div><label>Store Locator Exercise</label></div>
+			<img id="favicon" width="280px" src="resources/app/images/shop-locator-logo.png"></img>
 		</div>
-		<div class="data-panel-fake-location">
-			Store locations are limited in this demo and are mostly located in Cebu, Philippines.
-			You may use a proxy or <a href='#' id='btn-fake-location' data-fk-lat='10.317343' data-fk-lng='123.9117123'>use this fake location</a>
-		</div><br/>
 		<ul class="accordion">
 			<li>
 				<a class="toggle" href="#">
@@ -33,7 +28,13 @@
 				</a>
 				<ul class="inner">
 					<div class="data-panel-direction">
-						<label>Origin (i.e., your location) </label>
+						<label>Origin </label>
+						<div>
+							<!-- <input type="radio" name="origin" value="your-location" />
+							<label>Your Location</label> -->
+							<input type="radio" name="origin" value="sample-location" checked data-lat='10.317343' data-lng='123.9117123' />
+							<label>Sample Location</label>
+						</div>
 						<div><input id="inp-direction-origin" type="text" readonly="readonly" /></div>
 					</div>
 					<div class="data-panel-direction">
@@ -45,20 +46,6 @@
 					</div>
 				</ul>
 			</li>
-			<!--<li>
-				<a class="toggle" href="#">
-					<img id="favicon" width="16px" src="resources/app/images/filter.png"></img>
-					<span class="data-panel-options">Filters</span><hr/>
-				</a>
-				<ul class="inner">
-					<div class="data-panel-filters-est-type">
-						<label>Establishment Type</label><br/>
-					</div>
-					<div class="data-panel-filters-specialties">
-						<label>Specialties</label><br/>
-					</div>
-				</ul>
-			</li>-->
 			<li>
 				<a class="toggle" href="#">
 					<img id="favicon" width="16px" src="resources/app/images/tools.png"></img>
@@ -69,9 +56,10 @@
 						<input id="option-show-visits" type="checkbox" checked="checked" /> Customer Visits
 					</div>
 					<div>
-						<button id="btn_inspect_loc">Get stores within</button>
+						<button id="btn_inspect_loc" width="150">Get stores within</button>
 						<input id="tf_inspect_loc_radius" type="number" value="800" /> m radius
 						<div id="inspect_loc_details">
+							<div class="alert-info">You can move the radius around using your mouse</div>
 							<div><b>Number of Stores:</b> <span id="inspect_loc_count"></span></div>
 							<div><b>Establishments (From Your Location):</b> <span id="inspect_loc_est"></span></div>
 						</div>
@@ -80,7 +68,7 @@
 					</div>
 					<script>
 						$(function(){
-							$('#tools-charts-area').load('pages/crosshair-chart.html');
+							$('#tools-charts-area').load('resources/app/charts/crosshair-chart.html');
 						});
 					</script>
 				</ul>
@@ -89,19 +77,23 @@
 	</div>
 	<script type="text/javascript">
 		function initApp() {
+			const sampleLocation = {lat: 10.317343, lng: 123.9117123};
+
 			ng = new NgExer();
-			ng.initMap({lat: 10.3170726, lng: 123.8907623});
+			ng.initMap({lat: 10.3170726, lng: 123.8907623}, () => {
+				ng.initCurrentLocation(sampleLocation);
+			});
+
 			ng.loadRestaurants();
 			ng.initRestaurantsStats();
 			ng.showDataPanel();
 			ng.showFilterEstablishments();
 			ng.showFilterSpecialties();
-			ng.initToolInspectLocationByRadius({lat: 10.3158271, lng: 123.9059329});
+			ng.initToolInspectLocationByRadius(sampleLocation);
 			//ng.initDirectionOrigin();
 			ng.initDirectionDestination();
-			ng.initCurrentLocation(null);
 		}
 	</script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsUBfqJUwAaKUPIYCNRuz0VbXljkI4KpY&libraries=geometry&callback=initApp"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJlYRGUVSlv1cKljM_uyVZLtvWQaFMgY8&libraries=geometry&callback=initApp"></script>
   </body>
 </html>

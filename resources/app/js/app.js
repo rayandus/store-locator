@@ -38,30 +38,43 @@ function NgExer()
 	/*====================================================================================
 	 * Map initialization
 	 *====================================================================================*/
-	this.initMap = function(p_defaultLoc)
+	this.initMap = function(p_defaultLoc, p_mapLoadedCallback)
 	{
 		m_mapStyles = [
-			// set the stylers for the road featureType, but only highways
 			{
-				featureType: "road.highway", // just highways
-				elementType: "geometry", // labels excluded
+				"featureType": "administrative",
+				"elementType": "geometry",
 				"stylers": [
-				  { "hue": "#1900ff" },
-				  { "saturation": -54 },
-				  { "lightness": 54 },
-				  { "gamma": 0.52 }
+				  {
+					"visibility": "off"
+				  }
 				]
-			},
-			// set the stylers for the water features
-			{
-				featureType: "water", // all waters
+			  },
+			  {
+				"featureType": "poi",
 				"stylers": [
-				  { "hue": "#1900ff" },
-				  { "lightness": 14 },
-				  { "saturation": -58 },
-				  { "gamma": 0.26 }
+				  {
+					"visibility": "off"
+				  }
 				]
-			}
+			  },
+			  {
+				"featureType": "road",
+				"elementType": "labels.icon",
+				"stylers": [
+				  {
+					"visibility": "off"
+				  }
+				]
+			  },
+			  {
+				"featureType": "transit",
+				"stylers": [
+				  {
+					"visibility": "off"
+				  }
+				]
+			  }
 		];
 
 		g_mapDefaultLoc = p_defaultLoc;
@@ -71,8 +84,12 @@ function NgExer()
 		  disableDefaultUI: true
 		});
 		g_map.setOptions({styles: m_mapStyles});
+		
+		google.maps.event.addListenerOnce(g_map, 'tilesloaded', function() {
+			p_mapLoadedCallback();
+		});
 	};
-	
+
 	/*====================================================================================
 	 * Load restaurants
 	 *====================================================================================*/
@@ -142,13 +159,20 @@ function NgExer()
 		var m_datapanel = $('#data-panel');
 		// position data panel
 		g_map.controls[google.maps.ControlPosition.LEFT_TOP].push(m_datapanel[0]);
-		
-		// click event on fake location
-		$('#btn-fake-location').click(function(p_evt) {
-			NgExer.showUserGeoLocation({lat: $(this).data('fk-lat'), lng: $(this).data('fk-lng')}, {lat: 10.3190781, lng: 123.9000964});
+
+		// click event for origin radio option
+		$('input[name="origin"]').click(function (p_evt) {
+			const value = p_evt.currentTarget.value;
+
+			if (value === 'your-location') {
+				NgExer.showUserGeoLocation(null);
+			} else {
+				const location = {lat: $(this).data('lat'), lng: $(this).data('lng')};
+				NgExer.showUserGeoLocation(location, location);
+			}
 		});
 	}
-	
+
 	/*====================================================================================
 	 * Show data panel
 	 *====================================================================================*/
@@ -367,7 +391,7 @@ NgExer.showUserGeoLocation = function(p_fk_location, p_center)
 		
 		g_curr_marker.addListener('click', function() {
 			NgExer.getAddressFromLatLang(p_fk_location.lat, p_fk_location.lng, function(p_res) {
-				var m_content = '<strong>Your Location</strong><br/>'+
+				var m_content = '<strong>Your sample location</strong><br/>'+
 							'Location: '+p_fk_location.lat+', '+p_fk_location.lng+'<br/>'+
 							'Address: '+p_res+'<br/>';
 				g_infoWindow.setContent(m_content);
@@ -380,6 +404,7 @@ NgExer.showUserGeoLocation = function(p_fk_location, p_center)
 	}
 	// use user geolocation
 	else {
+		console.log('*** navigator.geolocation', navigator.geolocation);
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition( function(p_pos) {
 				// show current location marker
@@ -393,7 +418,7 @@ NgExer.showUserGeoLocation = function(p_fk_location, p_center)
 				
 				g_curr_marker.addListener('click', function() {
 					NgExer.getAddressFromLatLang(p_pos.coords.latitude, p_pos.coords.longitude, function(p_res) {
-						var m_content = '<strong>Your Location</strong><br/>'+
+						var m_content = '<strong>Your actual location</strong><br/>'+
 									'Location: '+p_pos.coords.latitude+', '+p_pos.coords.longitude+'<br/>'+
 									'Address: '+p_res+'<br/>';
 						g_infoWindow.setContent(m_content);

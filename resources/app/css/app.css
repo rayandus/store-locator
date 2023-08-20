@@ -50,6 +50,10 @@ input[id=tf_inspect_loc_radius]::-webkit-inner-spin-button {
 }
 
 /* direction */
+.data-panel-direction {
+	margin-top: 10px;
+}
+
 .data-panel-direction input, .data-panel-direction select {
 	-webkit-appearance: textfield;
     background-color: white;
@@ -70,6 +74,10 @@ input[id=tf_inspect_loc_radius]::-webkit-inner-spin-button {
 	width: 100%;
 }
 
+.data-panel-direction input[type="radio"] {
+	width: min-content;
+}
+
 #right-panel {
 	overflow-y: scroll;
 }
@@ -85,4 +93,23 @@ input[id=tf_inspect_loc_radius]::-webkit-inner-spin-button {
 .favicon {
 	background-image: url('resources/app/images/favicon.gif');
 	background-color: #cccccc;
+}
+
+.accordion > li {
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+#tools-charts-area {
+	margin-top: 10px;
+}
+
+.alert-info {
+	padding: 8px;
+	margin-bottom: 8px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
 }
