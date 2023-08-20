@@ -6,7 +6,7 @@
 
 ## About the Project
 
-Store locator is a demo project powered by Google Maps API. I made this for a simple demo a couple years back when I was still learning Google Maps API (more than 6 years ago). Fast forward to 2023, I wanted to share it in it's original form (mostly). It is written in plain Javascript, jQuery, HTML, CSS, which I hope would be much easier to grasp, or so I hope 😆😛
+Store locator is a demo project powered by Google Maps API. I made this for a simple demo a couple years back when I was still learning Google Maps API (more than 6 years ago). Fast forward to 2023, I wanted to share it in it's original form (mostly). It is written in plain Javascript, jQuery, HTML, CSS (all static), which I hope would be much easier to grasp, or so I hope 😆😛
 
 Google Maps API is a collection of maps services provided by Google that allow developers to integrate Google Maps into their applications. What I specifically used for this project are limited to:
 - Maps Javascript API
