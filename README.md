@@ -1,6 +1,6 @@
 
 <h1 align="left">
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="resources/app/images/shop-locator-logo.png" alt="Markdownify" width="200"></a>
+  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="src/app/images/shop-locator-logo.png" alt="Markdownify" width="200"></a>
   <div style="font-size: 18px">Store Locator Demo</div>
 </h1>
 

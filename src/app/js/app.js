@@ -28,7 +28,7 @@ function NgExer()
 	{
 		// load collections ahead
 		$.ajaxSetup({async:false});
-		$.getJSON('resources/app/data/collections.json', function(p_result) {
+		$.getJSON('src/app/data/collections.json', function(p_result) {
 			g_filterEstablishments = p_result.establishments;
 			g_filterSpecialties = p_result.specialties;
 		});
@@ -99,7 +99,7 @@ function NgExer()
 		
 		// pull sample data
 		$.ajaxSetup({async:false});
-		$.getJSON('resources/app/data/cebu-resto-geojson.json', function(result) {
+		$.getJSON('src/app/data/cebu-resto-geojson.json', function(result) {
 			g_features = result['features'];
 			//markers = map.data.addGeoJson(result);
 			
@@ -109,7 +109,7 @@ function NgExer()
 					position: new google.maps.LatLng(p_val.geometry.coordinates[1], p_val.geometry.coordinates[0]),
 					animation: google.maps.Animation.DROP,
 					icon: {
-						url: 'resources/app/images/utensils.png',
+						url: 'src/app/images/utensils.png',
 						scaledSize: new google.maps.Size(16, 16),
 						origin: new google.maps.Point(0, 0),
 						//anchor: new google.maps.Point(32,65)
@@ -329,7 +329,7 @@ function NgExer()
 	this.initRestaurantsStats = function()
 	{
 		// load collections ahead
-		$.getJSON('resources/app/data/est-stats-geojson.json', function(p_result) {
+		$.getJSON('src/app/data/est-stats-geojson.json', function(p_result) {
 			
 			$.each(p_result.establishments, function(p_key, p_val) {
 				g_establishmentStats[p_val.id] = p_val.stats;
