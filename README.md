@@ -16,7 +16,7 @@ Google Maps API is a collection of maps services provided by Google that allow d
 
 There are a bunch of other APIs and other tech stack support other than Javascript. You can read further about these APIs in their developer documentation [here](https://developers.google.com/maps)
 
-### [Demo Page](https://rayandus.github.io/store-locator)
+### [Demo Page](https://rayandus.github.io/store-locator-demo/)
 
 ## Prerequisites
 
