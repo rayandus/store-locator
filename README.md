@@ -43,7 +43,7 @@ There are a bunch of other APIs and other tech stack support other than Javascri
 1. Go to project root directory and install
 
    ```bash
-   cd gmaps-assignment
+   cd store-locator-demo
    nvm install # optional if you did not install nvm
    yarn install
    ```
