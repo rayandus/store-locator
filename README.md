@@ -1,22 +1,23 @@
 
-<h1 align="left">
+<h1 align="center">
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="src/app/images/shop-locator-logo.png" alt="Markdownify" width="200"></a>
   <div style="font-size: 15px">Store Locator Demo</div>
 </h1>
 
 ## About the Project
 
-Store locator is a demo project powered by Google Maps API. I made this for a simple demo a couple years back when I was still learning Google Maps API (more than 6 years ago). Fast forward to 2023, I wanted to share it in it's original form (mostly). It is written in plain Javascript, jQuery, HTML, CSS (all static), which I hope would be much easier to grasp, or so I hope 😆😛
+The Store Locator App is a personal demonstration project that utilizes the Google Maps API which is a collection of maps services provided by Google that allow developers to integrate Google Maps into their applications.
 
-Google Maps API is a collection of maps services provided by Google that allow developers to integrate Google Maps into their applications. What I specifically used for this project are limited to:
+This project integrates the following:
 - Maps Javascript API
 - Geocoding API
 - Directions API
 - Distance Matrix API
 
-There are a bunch of other APIs and other tech stack support other than Javascript. You can read further about these APIs in their developer documentation [here](https://developers.google.com/maps)
+In addition to JavaScript, there are other APIs and technology stacks supported. You can explore these APIs further in their developer documentation, which is available [here](https://developers.google.com/maps).
 
-### [Demo Page](https://rayandus.github.io/store-locator-demo/)
+
+### [Demo Page](https://rayandus.github.io/store-locator-demo)
 
 ## Prerequisites
 
