@@ -13,7 +13,7 @@ This project integrates the following:
 - Directions API
 - Distance Matrix API
 
-In addition to JavaScript, there are other APIs and technology stacks supported. You can explore these APIs further in their developer [documentation](https://developers.google.com/maps).
+In addition to above, there are other APIs and technology stacks supported. You can explore these APIs further in their developer [documentation](https://developers.google.com/maps).
 
 You can access the [demo here](https://rayandus.github.io/store-locator-demo) 🌐
 
