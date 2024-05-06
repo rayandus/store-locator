@@ -1,12 +1,11 @@
 
 <h1 align="center">
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="src/app/images/shop-locator-logo.png" alt="Markdownify" width="200"></a>
-  <div style="font-size: 15px">Store Locator Demo</div>
 </h1>
 
 ## About the Project
 
-The Store Locator App is a personal demonstration project that utilizes the Google Maps API which is a collection of maps services provided by Google that allow developers to integrate Google Maps into their applications.
+The Store Locator App is a personal project that demonstrates the use of the Google Maps API. This API is a suite of services provided by Google, enabling developers to incorporate Google Maps into their applications.
 
 This project integrates the following:
 - Maps Javascript API
@@ -17,7 +16,7 @@ This project integrates the following:
 In addition to JavaScript, there are other APIs and technology stacks supported. You can explore these APIs further in their developer documentation, which is available [here](https://developers.google.com/maps).
 
 
-### [Demo Page](https://rayandus.github.io/store-locator-demo)
+You can access the [demo here](https://rayandus.github.io/store-locator-demo) 🌐
 
 ## Prerequisites
 
