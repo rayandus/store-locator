@@ -34,7 +34,7 @@ This project is built with:
         Google Maps Platform
     </td>
     <td valign="top" align="center">
-        <img src="https://github.com/rayandus/my-portfolio/blob/main/public/css.png" width="50" height="50">
+        <img src="https://github.com/rayandus/my-portfolio/blob/main/public/css.png" height="50">
         <br />
         CSS
     </td>
