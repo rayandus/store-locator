@@ -5,7 +5,7 @@
 
 ## About the Project
 
-The Store Locator App is a personal project that demonstrates the use of the Google Maps API. This API is a suite of services provided by Google, enabling developers to incorporate Google Maps into their applications.
+The Store Locator App is a personal project that demonstrates the use of the Google Maps API. This API is a suite of services provided by Google Maps Platform, enabling developers to incorporate Google Maps into their applications.
 
 This project integrates the following:
 - Maps Javascript API
@@ -16,6 +16,30 @@ This project integrates the following:
 In addition to JavaScript, there are other APIs and technology stacks supported. You can explore these APIs further in their developer [documentation](https://developers.google.com/maps).
 
 You can access the [demo here](https://rayandus.github.io/store-locator-demo) 🌐
+
+## Project Overview
+
+This project is built with:
+
+<table cellpadding="0" cellspacing="0">
+  <tr style="padding: 0">
+    <td valign="top" align="center">
+        <img src="https://github.com/rayandus/my-portfolio/blob/main/public/javascript.svg" width="50" height="50">
+        <br />
+        Javascript
+    </td>
+        <td valign="top" align="center">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpiVitCff2DmyrHW2x8tp0Cc5zyQo22-rvVZDCtU2m1A&s" width="50" height="50">
+        <br />
+        Google Maps Platform
+    </td>
+    <td valign="top" align="center">
+        <img src="https://github.com/rayandus/my-portfolio/blob/main/public/css.svg" width="50" height="50">
+        <br />
+        CSS
+    </td>
+  </tr>
+</table>
 
 ## Prerequisites
 
